@@ -1,302 +1,350 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="initial-scale=1.0">
-<title>Picker</title>
-<style>
-body {
-    background:#FFF;
-    color:#000;
-    font-family:verdana, sans-serif;
-    font-size:10pt;
-    margin:0;
-    padding:10px;
-}
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Picker</title>
+    <style>
+        body {
+            background: #FFF;
+            color: #000;
+            font-family: verdana, sans-serif;
+            font-size: 10pt;
+            margin: 0;
+            padding: 10px;
+        }
 
-a:link, a:visited {
-    color:#008;
-    font-weight:bold;
-    text-decoration:none;
-}
+        a:link,
+        a:visited {
+            color: #008;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
-a:active, a:hover {
-    color:#ACF;
-}
+        a:active,
+        a:hover {
+            color: #ACF;
+        }
 
-.info {
-    font-weight:bold;
-}
+        .info {
+            font-weight: bold;
+        }
 
-button {
-    font-family:inherit;
-    cursor:pointer;
-    border:0;
-    border-radius:3px;
-    padding:0.3em 0.5em;
-    background:#CCC;
-    color:#000;
-}
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: 0;
+            border-radius: 3px;
+            padding: 0.3em 0.5em;
+            background: #CCC;
+            color: #000;
+        }
 
-button:hover {
-    background:#DDD;
-}
+        button:hover {
+            background: #DDD;
+        }
 
-button.disabled {
-    background:#DDD;
-    color:#888;
-    cursor:not-allowed;
-}
+        button.disabled {
+            background: #DDD;
+            color: #888;
+            cursor: not-allowed;
+        }
 
-button.disabled:hover {
-    background:#DDD;
-}
+        button.disabled:hover {
+            background: #DDD;
+        }
 
-#container {
-    position:relative;
-    margin-left:-10px;
-    margin-right:-10px;
-    padding:10px;
-    overflow:hidden;
-}
+        #container {
+            position: relative;
+            margin-left: -10px;
+            margin-right: -10px;
+            padding: 10px;
+            overflow: hidden;
+        }
 
-@media (min-width:1024px) {
-    /* Put the found favorites beside the picking div when the window is sufficiently large */
-    #picking {
-        float:left;
-        width:636px;
-    }
+        @media (min-width:1024px) {
 
-    #secondary {
-        margin-left:646px;
-    }
-}
+            /* Put the found favorites beside the picking div when the window is sufficiently large */
+            #picking {
+                float: left;
+                width: 636px;
+            }
 
-@media (min-width:1300px) {
-    /* Once we get to the point where 636px is less than half of the width of the screen, make the picking div just take up half */
-    #picking {
-        width:50%;
-    }
+            #secondary {
+                margin-left: 646px;
+            }
+        }
 
-    #secondary {
-        margin-left:51%;
-    }
-}
+        @media (min-width:1300px) {
 
-#pick {
-    background:#58F;
-    color:#FFF;
-    font-size:larger;
-    font-weight:bold;
-    width:6em;
-    border-radius:5px;
-    margin-right:10px;
-}
+            /* Once we get to the point where 636px is less than half of the width of the screen, make the picking div just take up half */
+            #picking {
+                width: 50%;
+            }
 
-#pick.disabled {
-    background:#ACF;
-}
+            #secondary {
+                margin-left: 51%;
+            }
+        }
 
-#pick:hover {
-    background:#ACF;
-}
+        #pick {
+            background: #58F;
+            color: #FFF;
+            font-size: larger;
+            font-weight: bold;
+            width: 6em;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
 
-.item-list {
-    padding:0;
-    list-style-type:none;
-    line-height:100px;
-}
+        #pick.disabled {
+            background: #ACF;
+        }
 
-.item-list li {
-    margin:0;
-    display:inline-block;
-    height:100px;
-    width:100px;
-    line-height:100px;
-    border:3px solid transparent;
-    text-align:center;
-    position:relative;
-    vertical-align:top;
-    overflow:hidden;
-    border-radius:100%;
-    background:#F7F7F7;
-    color:#000;
-}
+        #pick:hover {
+            background: #ACF;
+        }
 
-.item-list li img {
-    vertical-align:middle;
-    max-height:100%;
-    max-width:100%;
-}
+        .item-list {
+            padding: 0;
+            list-style-type: none;
+            line-height: 100px;
+        }
 
-.item-list li span {
-    display:inline-block;
-    vertical-align:middle;
-    line-height:1.2;
-}
+        .item-list li {
+            margin: 0;
+            display: inline-block;
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            border: 3px solid transparent;
+            text-align: center;
+            position: relative;
+            vertical-align: top;
+            overflow: hidden;
+            border-radius: 100%;
+            background: #F7F7F7;
+            color: #000;
+        }
 
-@media (max-width:636px) {
-    .item-list {
-        line-height:75px;
-    }
+        .item-list li img {
+            vertical-align: middle;
+            max-height: 100%;
+            max-width: 100%;
+        }
 
-    .item-list li {
-        line-height:75px;
-        height:75px;
-        width:75px;
-    }
-}
+        .item-list li span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1.2;
+        }
 
-@media (max-width:423px) {
-    .item-list {
-        line-height:50px;
-    }
+        @media (max-width:636px) {
+            .item-list {
+                line-height: 75px;
+            }
 
-    .item-list li {
-        line-height:50px;
-        height:50px;
-        width:50px;
-    }
-}
+            .item-list li {
+                line-height: 75px;
+                height: 75px;
+                width: 75px;
+            }
+        }
 
-#evaluating li {
-    cursor:pointer;
-}
+        @media (max-width:423px) {
+            .item-list {
+                line-height: 50px;
+            }
 
-#favorites li {
-    cursor:move;
-}
+            .item-list li {
+                line-height: 50px;
+                height: 50px;
+                width: 50px;
+            }
+        }
 
-.item-list li:hover {
-    background:#CDF;
-}
+        #evaluating li {
+            cursor: pointer;
+        }
 
-.item-list.sorting li:hover {
-    background:#F7F7F7;
-}
+        #favorites li {
+            cursor: move;
+        }
 
-#evaluating li.selected {
-    border:3px solid #7AC;
-}
+        .item-list li:hover {
+            background: #CDF;
+        }
 
-#evaluating, #buttons {
-    text-align:center;
-    margin:auto;
-}
+        .item-list.sorting li:hover {
+            background: #F7F7F7;
+        }
 
-#evaluating li.notice {
-    width:auto;
-    height:auto;
-    max-width:260px;
-    margin:auto;
-    background:#F7F7F7;
-    border-radius:10px;
-    padding:30px 30px;
-    color:#000;
-    text-align:center;
-    line-height:1.4;
-    cursor:auto;
-    font-size:10pt;
-}
+        #evaluating li.selected {
+            border: 3px solid #7AC;
+        }
 
-#buttons {
-    margin-top:30px;
-    position:relative;
-    z-index:3;
-}
-</style>
+        #evaluating,
+        #buttons {
+            text-align: center;
+            margin: auto;
+        }
+
+        #evaluating li.notice {
+            width: auto;
+            height: auto;
+            max-width: 260px;
+            margin: auto;
+            background: #F7F7F7;
+            border-radius: 10px;
+            padding: 30px 30px;
+            color: #000;
+            text-align: center;
+            line-height: 1.4;
+            cursor: auto;
+            font-size: 10pt;
+        }
+
+        #buttons {
+            margin-top: 30px;
+            position: relative;
+            z-index: 3;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Picker</h1>
+    <h1>Picker</h1>
 
-<p>You can include any content you want here.</p>
+    <p>
+        <strong>How to use:</strong> Select your favorite from each group of characters, then press the "Pick" button.
+        You can drag and drop the characters in the list to better reflect your personal rankings.
+        This sorter is based on antialiasis' favorite picker on <strong>Github</strong>, my fork can be seen <strong><a
+                href="https://github.com/eudaemonics/puyo-fave-picker">here</a>.</strong>
+        Assets are from <strong><a href="https://puyonexus.com/wiki/Main_Page">Puyo Nexus Wiki</a></strong>.
 
-<div id="container">
+        <p>Include roles:
+            <label><input type="checkbox" name="roles" class="roles" value="compile">Compile</label>
+            <label><input type="checkbox" name="roles" class="roles" value="madou-exclusive">Madou Monogatari-exclusive</label>
+            <label><input type="checkbox" name="roles" class="roles" value="fever">Fever</label>
+            <label><input type="checkbox" name="roles" class="roles" value="suzuran">Suzuran</label>
+            <label><input type="checkbox" name="roles" class="roles" value="tetris">Tetris</label>
+            <label><input type="checkbox" name="roles" class="roles" value="quest">Quest</label>
+            <label><input type="checkbox" name="roles" class="roles" value="quest-exclusive">Puyo Puyo!! Quest-exclusive</label>
+            </p>
 
-<div id="picking">
-<ul id="evaluating" class="item-list">
-</ul>
 
-<p id="buttons"><button id="pick">Pick</button> <button id="pass">Pass</button> <button id="undo">Undo</button> <button id="redo">Redo</button></p>
-</div>
+        I do not own <em>Puyo Puyo</em> or <em>Madou Monogatari</em>. This tool is purely for recreational use.
+        </em>
+    </p>
 
-<div id="secondary">
-<h2>Found favorites</h2>
+    <div id="container">
 
-<ol id="favorites" class="item-list">
-</ol>
-</div>
-</div>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="picker.js"></script>
-<script src="picker-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
-<script>
-'use strict';
+        <div id="picking">
+            <ul id="evaluating" class="item-list">
+            </ul>
 
-var items = [
-    /* COMPILE / ORIGINAL PUYO PUYO MAIN CAST */
-    {id: 'arle', name:'Arle Nadja', image: 'img/arle.png'},
-    {id: 'schezo', name:'Schezo Wegey', image: 'img/schezo.png'},
-    {id:'rulue', name:'Rulue', image:'img/rulue.png' },
-    {id:'witch', name:'Witch', image:'img/witch.png' },
-    {id:'draco', name:'Draco Centauros', image:'img/draco.png' },
+            <p id="buttons"><button id="pick">Pick</button> <button id="pass">Pass</button> <button
+                    id="undo">Undo</button> <button id="redo">Redo</button></p>
+        </div>
 
-    /* COMPILE / ORIGINAL PUYO PUYO SIDE CHARACTERS */
+        <div id="secondary">
+            <h2>Found favorites</h2>
 
-    /* MADOU MONOGATARI EXCLUSIVE*/
+            <ol id="favorites" class="item-list">
+            </ol>
+        </div>
+    </div>
 
-    /* FEVER */
+    <p class="footer">Coded with ♥︎ by <a href="https://eudaemonix.tumblr.com">eudaemonix</a>.</p>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="picker.js"></script>
+    <script src="picker-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+    <script>
+        'use strict';
 
-    /* SUZURAN */
+        var items = [
+            /* COMPILE / ORIGINAL PUYO PUYO MAIN CAST */
+            { id: 'arle', name: 'Arle Nadja', image: 'img/arle.png', role: 'compile'},
+            { id: 'schezo', name: 'Schezo Wegey', image: 'img/schezo.png', role: 'compile' },
+            { id: 'rulue', name: 'Rulue', image: 'img/rulue.png', role: 'compile'  },
+            { id: 'witch', name: 'Witch', image: 'img/witch.png', role: 'compile'  },
+            { id: 'draco', name: 'Draco Centauros', image: 'img/draco.png', role: 'compile'  },
 
-    /* TETRIS */
-   {id:'tee', name:'Tee', image:'img/tee.png' },
-    {id:'ess', name:'Ess', image:'img/ess.png' },
-    {id:'ai', name:'Ai', image:'img/ai.png' },
-    {id:'zed', name:'Zed', image:'img/zed.png' },
-    {id:'jay and elle', name:'Jay & Elle', image:'img/jayelle.png' },
-    {id:'ex', name:'Ex', image:'img/ex.png' },
-    {id:'o', name:'O', image:'img/o.png' },
-    {id:'squares', name:'Squares', image:'img/squares.png' },
-    {id:'marle', name:'Marle', image:'img/marle.png' }
-    /* QUEST */
-];
+            /* COMPILE / ORIGINAL PUYO PUYO SIDE CHARACTERS */
 
-var myPicker = new picker.Picker({
-    items: items
-});
+            /* MADOU MONOGATARI EXCLUSIVE*/
 
-var pickerUI = new PickerUI(myPicker, {
-    elements: {
-        pick: "#pick",
-        pass: "#pass",
-        undo: "#undo",
-        redo: "#redo",
-        evaluating: "#evaluating",
-        favorites: "#favorites"
-    }
-});
+            /* FEVER */
+            { id: 'amitie', name: 'Amitie', image: 'img/amitie.png', role: 'fever' },
+            { id: 'raffina', name: 'Raffina', image: 'img/raffina.png', role: 'fever' },
+            { id: 'sig', name: 'Sig', image: 'img/sig.png', role: 'fever' },
+            { id: 'lidelle', name: 'Lidelle', image: 'img/lidelle.png', role: 'fever' },
+            { id: 'klug', name: 'Klug', image: 'img/klug.png', role: 'fever' },
+            { id: 'tartar', name: 'Tartar', image: 'img/tartar.png', role: 'fever' },
 
-pickerUI.initialize();
 
-/* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
-var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
-    draggable: '.item',
-    animation: 100,
-    onStart: function() {
-        pickerUI.elem.favorites.addClass("sorting");
-    },
-    onEnd: function() {
-        pickerUI.elem.favorites.removeClass("sorting");
-    },
-    onUpdate: function() {
-        myPicker.setFavorites(pickerUI.elem.favorites.children().map(function() {
-            return pickerUI.getItem(this);
-        }).get());
-        pickerUI.update(true);
-    }
-});
-/* End sortable favorites */
-</script>
+            /* SUZURAN */
+            { id: 'ringo', name: 'Ringo Ando', image: 'img/ringo.png', role: 'suzuran' },
+            { id: 'maguro', name: 'Maguro Sasaki', image: 'img/maguro.png', role: 'suzuran'  },
+            { id: 'risukuma', name: 'Risukuma', image: 'img/risukuma.png', role: 'suzuran'  },
+
+            /* TETRIS */
+            { id: 'tee', name: 'Tee', image: 'img/tee.png', role: 'tetris'  },
+            { id: 'ess', name: 'Ess', image: 'img/ess.png', role: 'tetris'   },
+            { id: 'ai', name: 'Ai', image: 'img/ai.png', role: 'tetris'   },
+            { id: 'zed', name: 'Zed', image: 'img/zed.png', role: 'tetris'   },
+            { id: 'jay and elle', name: 'Jay & Elle', image: 'img/jayelle.png', role: 'tetris'   },
+            { id: 'ex', name: 'Ex', image: 'img/ex.png', role: 'tetris'   },
+            { id: 'o', name: 'O', image: 'img/o.png', role: 'tetris'   },
+            { id: 'squares', name: 'Squares', image: 'img/squares.png' },
+            { id: 'marle', name: 'Marle', image: 'img/marle.png' },
+            /* QUEST */
+            { id: 'atari', name: 'Atari', image: 'img/atari.png', role: 'quest'  },
+            { id: 'roquier', name: 'Roquier', image: 'img/roquier.png', role: 'quest'   },
+            { id: 'seo', name: 'Seo', image: 'img/seo.png', role: 'quest'   },
+            { id: 'towa', name: 'Towa', image: 'img/towa.png', role: 'quest'   },
+            { id: 'zero', name: 'Zero', image: 'img/zero.png', role: 'quest'   },
+            { id: 'hachi', name: 'Hachi', image: 'img/hachi.png', role: 'quest'   },
+            { id: 'issen', name: 'Issen', image: 'img/issen.png', role: 'quest'   }
+        ];
+
+        var myPicker = new picker.Picker({
+            items: items
+        });
+
+        var pickerUI = new PickerUI(myPicker, {
+            elements: {
+                pick: "#pick",
+                pass: "#pass",
+                undo: "#undo",
+                redo: "#redo",
+                evaluating: "#evaluating",
+                favorites: "#favorites"
+            }
+        });
+
+        pickerUI.initialize();
+
+        /* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
+        var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
+            draggable: '.item',
+            animation: 100,
+            onStart: function () {
+                pickerUI.elem.favorites.addClass("sorting");
+            },
+            onEnd: function () {
+                pickerUI.elem.favorites.removeClass("sorting");
+            },
+            onUpdate: function () {
+                myPicker.setFavorites(pickerUI.elem.favorites.children().map(function () {
+                    return pickerUI.getItem(this);
+                }).get());
+                pickerUI.update(true);
+            }
+        });
+        /* End sortable favorites */
+    </script>
 </body>
+
 </html>
